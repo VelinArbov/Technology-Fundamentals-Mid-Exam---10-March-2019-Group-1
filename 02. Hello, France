@@ -1,0 +1,70 @@
+using System;
+using System.Linq;
+using System.Collections.Generic;
+
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+
+            List<string> items = Console.ReadLine().Split("|").ToList();
+            decimal budjet = decimal.Parse(Console.ReadLine());
+            List<decimal> sorted = new List<decimal>();
+            decimal currentProfit = 0;
+            for (int i = 0; i < items.Count; i++)
+            {
+
+                string currentItem = items[i];
+                string[] tokens = currentItem.Split("->").ToArray();
+                string type = tokens[0];
+                decimal price = decimal.Parse(tokens[1]);
+                 
+                
+                if (type == "Clothes" && price > 50.00m || budjet - price < 0)
+                {
+                    continue;
+                }
+                if (type == "Shoes" && price > 35.00m || budjet - price < 0)
+                {
+                    continue;
+                }
+                if (type == "Accessories" && price >= 20.50m || budjet - price < 0)
+                {
+                    continue;
+                }
+                else
+                {
+
+                    budjet -= price;
+                    sorted.Add(price);
+                }
+
+            }
+            for (int i = 0; i < sorted.Count; i++)
+            {
+                decimal currentSort = sorted[i];
+                currentProfit += currentSort * 0.4m;
+                currentSort += currentSort * 0.4m;
+                sorted[i] = currentSort;
+            }
+            
+            foreach (var item in sorted)
+            {
+                Console.Write("{0:f2} ", item);
+            }
+            Console.WriteLine();
+            Console.WriteLine("Profit: {0:f2}", currentProfit);
+            decimal sum = sorted.Sum() + budjet;
+            if (sum >= 150)
+            {
+                Console.WriteLine("Hello, France!");
+            }
+            else
+            {
+                Console.WriteLine("Time to go.");
+            }
+        }
+    }
+}
