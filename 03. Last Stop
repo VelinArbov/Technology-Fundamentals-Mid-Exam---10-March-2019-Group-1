@@ -1,0 +1,86 @@
+using System;
+using System.Linq;
+using System.Collections.Generic;
+
+namespace LastStop
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+
+            List<int> numberlIST = Console.ReadLine().Split().Select(int.Parse).ToList();
+
+            while (true)
+            {
+                string command = Console.ReadLine();
+                if (command == "END")
+                {
+                    break;
+                }
+                string[] tokens = command.Split();
+                string coma = tokens[0];
+
+                if (coma == "Insert")
+                {
+                    int place = int.Parse(tokens[1]);
+                    int number = int.Parse(tokens[2]);
+                    if (numberlIST.Count - 1 > place)
+                    {
+                        numberlIST.Insert(place + 1, number);
+                    }
+                }
+                // Console.WriteLine(string.Join(" ",numberlIST));
+                else if (coma == "Switch")
+                {
+                    int valueFirst = int.Parse(tokens[1]);
+                    int valueSecond = int.Parse(tokens[2]);
+                    if (numberlIST.Contains(valueFirst) && numberlIST.Contains(valueSecond))
+                    {
+                        int indexFirst = numberlIST.IndexOf(valueFirst);
+                        int indexSecond = numberlIST.IndexOf(valueSecond);
+
+                        numberlIST[indexFirst] = valueSecond;
+                        numberlIST[indexSecond] = valueFirst;
+                    }
+                    // Console.WriteLine(string.Join(" ", numberlIST));
+
+                    
+                }
+                else if (coma == "Hide")
+                {
+                    int number = int.Parse(tokens[1]);
+                    if (numberlIST.Contains(number))
+                    {
+                        numberlIST.Remove(number);
+                    }
+
+                }
+                //  Console.WriteLine(string.Join(" ", numberlIST));
+                else if (coma == "Reverse")
+                {
+                    numberlIST.Reverse();
+
+                }
+                else if ( coma == "Change")
+                {
+                    int valueFirst = int.Parse(tokens[1]);
+                    int valueSecond = int.Parse(tokens[2]);
+                    if (numberlIST.Contains(valueFirst))
+                    {
+                        int indexFirst = numberlIST.IndexOf(valueFirst);
+                        numberlIST[indexFirst] = valueSecond;
+                    }
+                }
+
+
+
+                //-	Change {paintingNumber} {changedNumber} – find the painting with the first number in the collection (if it exists) and change its number with the second number – {changedNumber}.
+            }
+            Console.WriteLine(string.Join(" ", numberlIST));
+
+
+            }
+        }
+    }
+
