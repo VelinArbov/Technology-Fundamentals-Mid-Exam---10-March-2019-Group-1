@@ -1,0 +1,77 @@
+using System;
+using System.Linq;
+using System.Collections.Generic;
+
+
+namespace MidExamEx1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+
+            int days = int.Parse(Console.ReadLine());
+            decimal budjet = decimal.Parse(Console.ReadLine());
+            int groupofPeople = int.Parse(Console.ReadLine());
+            decimal kilometers = decimal.Parse(Console.ReadLine());
+            decimal moneyPerPeople = decimal.Parse(Console.ReadLine());
+            decimal priceForRoom = decimal.Parse(Console.ReadLine());
+            decimal foodPriceallday = moneyPerPeople * days * groupofPeople;
+            decimal curentMoney = 0;
+            decimal HotelMoney = days * groupofPeople * priceForRoom;
+            if (groupofPeople > 10)
+            {
+                HotelMoney = HotelMoney - (HotelMoney * 0.25m);
+               
+            }
+            curentMoney = foodPriceallday + HotelMoney;
+            for (int i = 1; i <= days; i++)
+            {
+                if (curentMoney >= budjet)
+                {
+                    Console.WriteLine("Not enough money to continue the trip. You need {0:f2}$ more.", curentMoney - budjet);
+                    return;
+                }
+
+                decimal distancePerday = decimal.Parse(Console.ReadLine());
+                decimal PricePerDistance = distancePerday * kilometers;
+                curentMoney += PricePerDistance;
+              
+
+               
+              
+              if (i % 3 == 0 || i % 5 == 0)
+                {
+                    curentMoney += curentMoney * 0.4m;
+
+                }
+                else if (i % 7 == 0)
+                {
+                    decimal smallmoney = curentMoney / groupofPeople;
+                    curentMoney -= smallmoney;
+                  
+                }
+              
+
+            }    
+                
+            
+            if (budjet >= curentMoney)
+            {
+                Console.WriteLine("You have reached the destination. You have {0:f2}$ budget left.",budjet-curentMoney);
+            }
+            else
+            {
+                Console.WriteLine("Not enough money to continue the trip. You need {0:f2}$ more.",curentMoney-budjet);
+            }
+
+
+
+
+
+
+
+
+        }
+    }
+}
